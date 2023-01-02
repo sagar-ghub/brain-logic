@@ -5,6 +5,7 @@ const User = require("../Model/User");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 router.post("/login", (req, res) => {
+  console.log("as");
   const { email, password } = req.body;
   User.findOne({ email: email }, (err, user) => {
     if (user) {

@@ -6,6 +6,9 @@ const dotenv = require("dotenv");
 const app = express();
 const authRoutes = require("./routes/authRoutes");
 const webRoutes = require("./routes/webRoutes");
+const getRoutes = require("./routes/getRoutes");
+const cronJob = require("./node-cron");
+var cron = require("node-cron");
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
@@ -25,9 +28,12 @@ mongoose
 
 //routes routes
 app.use("/auth", authRoutes);
-app.use("/api", webRoutes);
+app.use("/create", webRoutes);
+app.use("/get", getRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("server is running on port ", PORT);
 });
+
+// cronJob();

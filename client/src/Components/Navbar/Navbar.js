@@ -2,12 +2,30 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Logo from "../../assets/logo.png";
+import User from "../../assets/Group.svg";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRocket,
+  faWandMagicSparkles,
+  faHippo,
+  faUserSecret,
+  faClover,
+  faMagicWandSparkles,
+  faPowerOff,
+  faPeopleRobbery,
+  faNoteSticky,
+} from "@fortawesome/free-solid-svg-icons";
 
-function CollapsibleExample() {
+function CollapsibleExample({ user, logout }) {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Brain Logic</Navbar.Brand>
+        <img src={Logo} alt="logo" style={{ width: "50px" }} />
+        <Navbar.Brand href="#home" style={{ color: "white" }}>
+          Brain Logic
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {/* <Nav className="me-auto">
@@ -26,10 +44,105 @@ function CollapsibleExample() {
             </NavDropdown>
           </Nav> */}
           <Nav className="ms-auto">
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
+            {user ? (
+              <>
+                {user.role === "user" ? (
+                  <>
+                    <Nav.Link as={Link} to="/event" href="#deets">
+                      <FontAwesomeIcon
+                        icon={faMagicWandSparkles}
+                        pull="right"
+                        size="xl"
+                      />
+                      Events
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to="/compiler"
+                      eventKey={2}
+                      href="#memes"
+                    >
+                      Practice
+                      <FontAwesomeIcon icon={faRocket} pull="right" size="xl" />
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to="/leaderboard"
+                      eventKey={2}
+                      href="#memes"
+                    >
+                      LeaderBoard
+                      <FontAwesomeIcon
+                        icon={faPeopleRobbery}
+                        pull="right"
+                        size="xl"
+                      />
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/notice" eventKey={2} href="#memes">
+                      Notice
+                      <FontAwesomeIcon
+                        icon={faNoteSticky}
+                        pull="right"
+                        size="xl"
+                      />
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to="/profile"
+                      className="d-flex align-items-center"
+                      eventKey={2}
+                      href="#memes"
+                    >
+                      Profile
+                      <FontAwesomeIcon
+                        icon={faUserSecret}
+                        pull="right"
+                        size="xl"
+                      />
+                      {/* <img
+                        src={`https://avatars.dicebear.com/4.6/api/bottts/${user.name}.svg`}
+                        alt="profile image"
+                        height="30px"
+                        style={{ marginLeft: "3px" }}
+                      /> */}
+                    </Nav.Link>
+                    <Nav.Link onClick={logout} eventKey={2} href="#memes">
+                      Logout
+                      <FontAwesomeIcon
+                        icon={faPowerOff}
+                        pull="right"
+                        size="xl"
+                      />
+                    </Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link as={Link} to="/members" href="#deets">
+                      Members
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/events" eventKey={2} href="#memes">
+                      Events
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/notice" eventKey={2} href="#memes">
+                      Notice
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/report" eventKey={2} href="#memes">
+                      Report
+                    </Nav.Link>
+                  </>
+                )}
+              </>
+            ) : (
+              <Nav.Link as={Link} to="/login" href="#deets">
+                Login
+              </Nav.Link>
+            )}
+            <img
+              src={User}
+              alt="logo"
+              style={{ width: "30px" }}
+              onClick={logout}
+            />
           </Nav>
         </Navbar.Collapse>
       </Container>
