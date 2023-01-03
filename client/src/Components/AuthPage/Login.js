@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import apis from "../../api/api";
 
@@ -9,16 +9,20 @@ export default function Login({ setUser, setAuth }) {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = React.useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     apis
       .login(formData)
       .then((res) => {
+        setLoading(false);
         if (res.status == 200) {
           setAuth(res.data.user);
+
           history.push("/");
         } else {
           setAuth(null);
@@ -26,6 +30,7 @@ export default function Login({ setUser, setAuth }) {
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err.response.data.error);
         setAuth(null);
       });
@@ -67,7 +72,7 @@ export default function Login({ setUser, setAuth }) {
         </Form.Group> */}
             <div className="text-center">
               <Button variant="primary" type="submit">
-                Login
+                {loading ? <Spinner></Spinner> : "Login"}
               </Button>
             </div>
             <div className="text-end">
