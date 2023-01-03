@@ -169,8 +169,11 @@ margin-bottom: 50px;
   
   .text {
     position: relative;
-    top: 70px;
+    top: 90px;
     right: 3rem;
+  }
+  .text p{
+    margin-bottom: -1px;
   }
   
   .user_name {
@@ -528,4 +531,55 @@ margin-bottom: 50px;
     width: 50vw;
     max-width: 200px;
     padding: 10px;
+}
+
+
+/* leaderboard end  */
+
+/* event start  */
+.events .event {
+  width: 60vw;  /* Set the width of the items */
+  height: 200px;  /* Set the height of the items */
+  background-color: #3498db;  /* Set the background color of the items */
+  color: #ffffff;  /* Set the color of the text */
+  font-size: 15px;  /* Set the font size of the text */
+  font-family: sans-serif;  /* Set the font family of the text */
+  border-radius: 10px;  /* Add rounded corners to the items */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  /* Add a shadow to the items */
+  padding:20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+
+}
+.event h5{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color:#001722
+}
+.event p {
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.events .link {
+  color: white;  /* Set the color of the link */
+  text-decoration: none;  /* Remove the default underline from the link */
+  font-size: 18px;  /* Set the font size of the link */
+  font-family: sans-serif;  /* Set the font family of the link */
+  transition: color 0.2s;  /* Add a transition to the link when the color changes */
+  margin-top: -10px;
+  padding: 5px;
+  background-color: #3a404d;  /* Add a background color to the link on hover */
+  border-radius: 5px;
+  
+}
+
+.events .link:hover {
+  color: #ffffff;  /* Change the color of the link on hover */
+  background-color: #3a404d;  /* Add a background color to the link on hover */
+  border-radius: 5px;  /* Add rounded corners to the link on hover */
 }

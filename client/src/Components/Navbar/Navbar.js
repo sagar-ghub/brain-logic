@@ -17,13 +17,18 @@ import {
   faPeopleRobbery,
   faNoteSticky,
 } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 function CollapsibleExample({ user, logout }) {
+  const [beat, setBeat] = useState(true);
+  setTimeout(() => {
+    setBeat(false);
+  }, 1000);
   return (
     <Navbar collapseOnSelect expand="lg">
       <Container>
         <img src={Logo} alt="logo" style={{ width: "50px" }} />
-        <Navbar.Brand href="#home" style={{ color: "white" }}>
+        <Navbar.Brand href="/dashboard" style={{ color: "white" }}>
           Brain Logic
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -52,6 +57,7 @@ function CollapsibleExample({ user, logout }) {
                       <FontAwesomeIcon
                         icon={faMagicWandSparkles}
                         pull="right"
+                        bounce={beat}
                         size="xl"
                       />
                       Events
@@ -63,7 +69,12 @@ function CollapsibleExample({ user, logout }) {
                       href="#memes"
                     >
                       Practice
-                      <FontAwesomeIcon icon={faRocket} pull="right" size="xl" />
+                      <FontAwesomeIcon
+                        icon={faRocket}
+                        pull="right"
+                        bounce={beat}
+                        size="xl"
+                      />
                     </Nav.Link>
                     <Nav.Link
                       as={Link}
@@ -75,6 +86,7 @@ function CollapsibleExample({ user, logout }) {
                       <FontAwesomeIcon
                         icon={faPeopleRobbery}
                         pull="right"
+                        bounce={beat}
                         size="xl"
                       />
                     </Nav.Link>
@@ -82,6 +94,7 @@ function CollapsibleExample({ user, logout }) {
                       Notice
                       <FontAwesomeIcon
                         icon={faNoteSticky}
+                        bounce={beat}
                         pull="right"
                         size="xl"
                       />
@@ -97,6 +110,7 @@ function CollapsibleExample({ user, logout }) {
                       <FontAwesomeIcon
                         icon={faUserSecret}
                         pull="right"
+                        bounce={beat}
                         size="xl"
                       />
                       {/* <img
@@ -111,6 +125,7 @@ function CollapsibleExample({ user, logout }) {
                       <FontAwesomeIcon
                         icon={faPowerOff}
                         pull="right"
+                        bounce={beat}
                         size="xl"
                       />
                     </Nav.Link>
@@ -133,9 +148,14 @@ function CollapsibleExample({ user, logout }) {
                 )}
               </>
             ) : (
-              <Nav.Link as={Link} to="/login" href="#deets">
-                Login
-              </Nav.Link>
+              <>
+                <Nav.Link as={Link} to="/login" href="#deets">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/register" eventKey={2} href="#memes">
+                  Register
+                </Nav.Link>
+              </>
             )}
             <img
               src={User}

@@ -27,6 +27,9 @@ import pacman from "./assets/pacman.gif";
 import Notice from "./Components/User/Notice";
 import Landing from "./CodeCompiler/components/Landing";
 import Profile from "./Components/User/Profile";
+import LoadingComponent from "./Components/LoadingComponent";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [isLoading, setLoading] = useState(true);
   const [sidebarLink, setSidebarLink] = useState("Home");
@@ -54,7 +57,8 @@ function App() {
     }
     setLoading(false);
   }, [user]);
-  if (isLoading) return <img src={pacman} alt="Loading..." />;
+  if (isLoading) return <LoadingComponent />;
+  //  <img src={pacman} alt="Loading..." />;
   // return <SpinnerComponent />;
   else
     return (
@@ -68,6 +72,7 @@ function App() {
             /> */}
               <Navbar user={user} logout={logout} />
             </Col>
+
             <Col md={12}>
               <div className="app_container">
                 <Switch>

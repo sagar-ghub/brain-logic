@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "http://localhost:5000",
   headers: {
-    "x-access-token": localStorage.getItem("token") || "",
+    "x-access-token": localStorage.getItem("token"),
   },
   // baseURL: "https://sore-rose-pike-sari.cyclic.app",
 });

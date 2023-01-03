@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
   birthday: String,
   password: String,
   leetcode_id: String,
+  allowed: {
+    type: Boolean,
+    default: false,
+  },
   leetcode_solved: [
     {
       easy: Number,

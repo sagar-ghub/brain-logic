@@ -1,9 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-
+import moment from "moment";
 export default function Profile({ user }) {
   console.log(user);
+  const date = moment(user.birthday).format("Do MMM YYYY");
   useEffect(() => {
     const clc = document.querySelector(".cancel");
     const arr = document.querySelector(".arr_container");
@@ -38,7 +39,8 @@ export default function Profile({ user }) {
             <div class="text">
               <p class="user_name">{user.name}</p>
               <p class="skill">{user.email}</p>
-              <p>Age : 28</p>
+              <p>Birthday: {date}</p>
+              <p>Mobile: {user.mobile}</p>
             </div>
             <div class="arr_container center">
               <i class="fas fa-level-up-alt fa-4px"></i>
@@ -50,7 +52,10 @@ export default function Profile({ user }) {
                 <div>Java</div>
                 <div>Python</div>
               </div>
-
+              <br />
+              <div className="text-center">
+                {user.branch + " " + user.year + "BATCH"}
+              </div>
               <div class="icons">
                 <a href="#" target="_blank" class="fab fa-facebook"></a>
                 <a href="#" target="_blank" class="fab fa-instagram"></a>

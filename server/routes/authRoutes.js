@@ -45,7 +45,7 @@ router.post("/login", (req, res) => {
 });
 router.post("/register", (req, res) => {
   console.log(req.body);
-  const { name, email, password } = req.body;
+  const { name, email, password, branch, year, mobile, birthday } = req.body;
   User.findOne({ email: email }, (err, user) => {
     if (user) {
       res.status(200).json({ message: "user already exist" });
