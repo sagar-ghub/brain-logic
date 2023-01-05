@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import apis from "../../api/api";
+import authApis from "../../api/authApis";
 
 export default function Login({ setUser, setAuth }) {
   let history = useHistory();
@@ -16,7 +16,7 @@ export default function Login({ setUser, setAuth }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    apis
+    authApis
       .login(formData)
       .then((res) => {
         setLoading(false);

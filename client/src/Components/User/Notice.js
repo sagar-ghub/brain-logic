@@ -8,6 +8,7 @@ export default function Notice() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
+
     apis.getNotices().then((res) => {
       console.log(res.data);
       setData(res.data?.data);
