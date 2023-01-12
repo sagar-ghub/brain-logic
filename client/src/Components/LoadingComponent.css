@@ -398,3 +398,100 @@
 	from, to { opacity: 0; }
 	6%, 94% { opacity: 1; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ddd p {
+	color: #fff;
+	font-family: Avenir Next, Helvetica Neue, Helvetica, Tahoma, sans-serif;
+	font-size: 0.5em;
+	font-weight: 700;
+  }
+  .ddd p span {
+	display: inline-block;
+	position: relative;
+	transform-style: preserve-3d;
+	perspective: 500;
+	-webkit-font-smoothing: antialiased;
+  }
+  .ddd p span::before,
+  .ddd  p span::after {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: -1px;
+	transform-origin: left top;
+	transition: all ease-out 0.3s;
+	content: attr(data-text);
+  }
+  .ddd p span::before {
+	z-index: 1;
+	color: rgba(0,0,0,0.2);
+	transform: scale(1.1, 1) skew(0deg, 20deg);
+  }
+  .ddd p span::after {
+	z-index: 2;
+	color: #684da3;
+	text-shadow: -1px 0 1px #684da3, 1px 0 1px rgba(0,0,0,0.8);
+	transform: rotateY(-40deg);
+  }
+  .ddd p span:hover::before {
+	transform: scale(1.1, 1) skew(0deg, 5deg);
+  }
+  .ddd p span:hover::after {
+	transform: rotateY(-10deg);
+  }
+  .ddd p span + span {
+	margin-left: 0.3em;
+  }
+  @media (min-width: 20em) {
+	.ddd p {
+	  font-size: 2em;
+	}
+	.ddd p span::before,
+	.ddd p span::after {
+	  display: block;
+	}
+  }
+  @media (min-width: 30em) {
+	.ddd p {
+	  font-size: 3em;
+	}
+  }
+  @media (min-width: 40em) {
+	.ddd p {
+	  font-size: 5em;
+	}
+  }
+  @media (min-width: 60em) {
+	.ddd p {
+	  font-size: 5em;
+	}
+  }
+  /* html,
+  body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+  } */
+  /* body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #684da3;
+  } */
+  

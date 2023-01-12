@@ -6,7 +6,8 @@ const OutputDetails = ({ outputDetails }) => {
       <p className="text-sm">
         Status:{" "}
         <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-          {outputDetails?.status?.description}
+          {/* {outputDetails?.status?.description} */}
+          {outputDetails?.output}
         </span>
       </p>
       <p className="text-sm">
@@ -18,7 +19,8 @@ const OutputDetails = ({ outputDetails }) => {
       <p className="text-sm">
         Time:{" "}
         <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-          {outputDetails?.time}
+          {/* {outputDetails?.time} */}
+          {outputDetails?.cpuTime}
         </span>
       </p>
     </div>

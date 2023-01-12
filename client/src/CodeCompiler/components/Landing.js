@@ -16,41 +16,29 @@ import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import { Col, Row } from "react-bootstrap";
+import apis from "../../api/api";
+import { useParams } from "react-router-dom";
 
 const javascriptDefault = `/**
 * Problem: Binary Search: Search a sorted array for a target value.
 */
 
-// Time: O(log n)
-const binarySearch = (arr, target) => {
- return binarySearchHelper(arr, target, 0, arr.length - 1);
-};
+#include <stdio.h>
 
-const binarySearchHelper = (arr, target, start, end) => {
- if (start > end) {
-   return false;
- }
- let mid = Math.floor((start + end) / 2);
- if (arr[mid] === target) {
-   return mid;
- }
- if (arr[mid] < target) {
-   return binarySearchHelper(arr, target, mid + 1, end);
- }
- if (arr[mid] > target) {
-   return binarySearchHelper(arr, target, start, mid - 1);
- }
-};
+int main()
+{
+    printf("Hello World");
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const target = 5;
-console.log(binarySearch(arr, target));
+    return 0;
+}
+
 `;
 
-const Landing = () => {
+const Landing = ({ user }) => {
   const [code, setCode] = useState(javascriptDefault);
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
+  const [expectedOutput, setExpectedOutput] = useState("");
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -62,6 +50,26 @@ const Landing = () => {
     console.log("selected Option...", sl);
     setLanguage(sl);
   };
+
+  let { id } = useParams();
+  // console.log(id);
+  useEffect(() => {
+    apis
+      .getQuestionById(id)
+      .then((res) => {
+        console.log(res.data);
+        let data = res.data?.data;
+        setCustomInput(data[0]?.input);
+        setExpectedOutput(data[0]?.output);
+        // setData(res.data?.data);
+        // setLoading(false);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          console.log(err.response.data);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
@@ -83,31 +91,60 @@ const Landing = () => {
   };
   const handleCompile = () => {
     setProcessing(true);
-    const formData = {
-      language_id: language.id,
-      // encode source code in base64
-      source_code: btoa(code),
-      stdin: btoa(customInput),
+    const requestBody = {
+      clientId: "f90d1c2bbb338783ac68d9b812da0f4d",
+      clientSecret:
+        "32fb1e09eb9f27dd8f6c4c9eacfc9eecd5743c68ebceb2bfe710942609fd1b0d",
+      script: JSON.parse(code),
+      stdin: customInput,
+      language: language.value,
+      versionIndex: language.id,
     };
+
+    // const formData = {
+    //   language_id: language.id,
+    //   // encode source code in base64
+    //   source_code: btoa(code),
+    //   stdin: btoa(customInput),
+    // };
+    // const options = {
+    //   method: "POST",
+    //   url: process.env.REACT_APP_RAPID_API_URL,
+    //   params: { base64_encoded: "true", fields: "*" },
+    //   headers: {
+    //     "content-type": "application/json",
+    //     "Content-Type": "application/json",
+    //     "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
+    //     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+    //   },
+    //   data: formData,
+    // };
     const options = {
       method: "POST",
-      url: process.env.REACT_APP_RAPID_API_URL,
-      params: { base64_encoded: "true", fields: "*" },
+      url: "https://stage.jdoodle.com/execute",
       headers: {
-        "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
       },
-      data: formData,
+      data: requestBody,
     };
 
     axios
       .request(options)
       .then(function (response) {
-        console.log("res.data", response.data);
-        const token = response.data.token;
-        checkStatus(token);
+        console.log("res.data", response?.data);
+        setOutputDetails(response?.data);
+        setProcessing(false);
+
+        if (response?.data?.output == expectedOutput) {
+          toast.success("YOUR CODE IS APPROVED ");
+
+          apis
+            .updateScore({ userId: user.user_id, questionId: id })
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err));
+        } else toast.error("TRY AGAIN");
+        // const token = response.data.token;
+        // checkStatus(token);
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
@@ -127,40 +164,40 @@ const Landing = () => {
       });
   };
 
-  const checkStatus = async (token) => {
-    const options = {
-      method: "GET",
-      url: process.env.REACT_APP_RAPID_API_URL + "/" + token,
-      params: { base64_encoded: "true", fields: "*" },
-      headers: {
-        "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
-      },
-    };
-    try {
-      let response = await axios.request(options);
-      let statusId = response.data.status?.id;
+  // const checkStatus = async (token) => {
+  //   const options = {
+  //     method: "GET",
+  //     url: process.env.REACT_APP_RAPID_API_URL + "/" + token,
+  //     params: { base64_encoded: "true", fields: "*" },
+  //     headers: {
+  //       "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
+  //       "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+  //     },
+  //   };
+  //   try {
+  //     let response = await axios.request(options);
+  //     let statusId = response.data.status?.id;
 
-      // Processed - we have a result
-      if (statusId === 1 || statusId === 2) {
-        // still processing
-        setTimeout(() => {
-          checkStatus(token);
-        }, 2000);
-        return;
-      } else {
-        setProcessing(false);
-        setOutputDetails(response.data);
-        showSuccessToast(`Compiled Successfully!`);
-        console.log("response.data", response.data);
-        return;
-      }
-    } catch (err) {
-      console.log("err", err);
-      setProcessing(false);
-      showErrorToast();
-    }
-  };
+  //     // Processed - we have a result
+  //     if (statusId === 1 || statusId === 2) {
+  //       // still processing
+  //       setTimeout(() => {
+  //         checkStatus(token);
+  //       }, 2000);
+  //       return;
+  //     } else {
+  //       setProcessing(false);
+  //       setOutputDetails(response.data);
+  //       showSuccessToast(`Compiled Successfully!`);
+  //       console.log("response.data", response.data);
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.log("err", err);
+  //     setProcessing(false);
+  //     showErrorToast();
+  //   }
+  // };
 
   function handleThemeChange(th) {
     const theme = th;
@@ -238,7 +275,7 @@ const Landing = () => {
           </Col>
           <Col md={4}>
             <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
-              <OutputWindow outputDetails={outputDetails} />
+              {/* <OutputWindow outputDetails={outputDetails} /> */}
               <hr />
               <div className="flex flex-col items-end">
                 <CustomInput
@@ -257,6 +294,12 @@ const Landing = () => {
                 </button>
               </div>
               {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+              {expectedOutput && (
+                <div>
+                  <h4>Expected Output:</h4>
+                  <textarea>{expectedOutput}</textarea>
+                </div>
+              )}
             </div>
           </Col>
         </Row>

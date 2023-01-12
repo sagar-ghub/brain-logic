@@ -3,17 +3,25 @@ import { Col, Row } from "react-bootstrap";
 import apis from "../../api/api";
 import LoadingComponent from "../LoadingComponent";
 
-export default function Notice() {
+export default function Notice({ setAuth }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
 
-    apis.getNotices().then((res) => {
-      console.log(res.data);
-      setData(res.data?.data);
-      setLoading(false);
-    });
+    apis
+      .getNotices()
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data?.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setAuth(null);
+          console.log(err.response.data);
+        }
+      });
   }, []);
   if (loading) return <LoadingComponent />;
   else

@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {} from "@fortawesome/free-solid-svg-icons";
 export default function Dashboard() {
   return (
-    <div>
-      <Row>
+    <div className="dashboard">
+      {/* <Row>
         <Col md={12} className="auth_header ">
           <h3>DashBoard</h3>
         </Col>
-      </Row>
+      </Row> */}
 
-      <Row>
+      <Row className="mt-5">
         {/* <Col md={4}>
           <Card style={{ width: "22rem" }}>
             <Card.Body>
@@ -36,10 +36,28 @@ export default function Dashboard() {
                   class="display-5"
                   style={{ fontWeight: "800", color: "#4b565e" }}
                 >
-                  The Coolest Coding Club in Trident
+                  The Coolest Coding Club in
                 </h1>
 
-                <p class="lead" style={{ color: "black" }}>
+                <div className="ddd">
+                  <p aria-label="CodePen">
+                    <span data-text="T">T</span>
+                    <span data-text="R">R</span>
+                    <span data-text="I">I</span>
+                    <span data-text="D">D</span>
+                    <span data-text="E">E</span>
+                    <span data-text="N">N</span>
+                    <span data-text="T">T</span>
+                  </p>
+                </div>
+
+                <p
+                  class="lead"
+                  style={{
+                    color: "black",
+                    fontFamily: "sans-serif",
+                  }}
+                >
                   Building a community of people who are interested in coding
                   and technology. Hosting workshops, hackathons, and other
                   events to provide learning opportunities and foster
@@ -59,6 +77,58 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+        <Row>
+          <Col md={6} id="sec-about" class="sec-about pt-5 pb-5">
+            <div class="container">
+              <div class="row justify-content-center text-center">
+                <div class="col-md-10 col-lg-8">
+                  <h1
+                    class="h4"
+                    style={{
+                      fontWeight: 700,
+                      color: "black",
+                    }}
+                  >
+                    Vision
+                  </h1>
+                  <p
+                    class="mt-4 mb-4"
+                    style={{ color: "black", fontWeight: "600" }}
+                  >
+                    To build computer professional capable of solving a real
+                    world problem for socital benefit in the most effective and
+                    efficient way.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col md={6} id="sec-about" class="sec-about pt-5 pb-5">
+            <div class="container">
+              <div class="row justify-content-center text-center">
+                <div class="col-md-10 col-lg-8">
+                  <h1
+                    class="h4"
+                    style={{
+                      fontWeight: 700,
+                      color: "black",
+                    }}
+                  >
+                    Mission
+                  </h1>
+                  <p
+                    class="mt-4 mb-4"
+                    style={{ color: "black", fontWeight: "600" }}
+                  >
+                    To inculcate evolving and emerging modern practices to build
+                    clister clear coneptual clarity in the minds of the
+                    aspirants.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
 
         <section id="sec-about" class="sec-about pt-5 pb-5">
           <div class="container">

@@ -21,15 +21,18 @@ import UserDashboard from "./Components/User/DashBoard/Dashboard";
 import AdminDashboard from "./Components/Admin/Dashboard";
 import Events from "./Components/Admin/Events";
 import Members from "./Components/Admin/Members";
+import Notices from "./Components/Admin/Notice";
 import LeaderBoard from "./Components/User/LeaderBoard";
 import SpinnerComponent from "./Components/SpinnerComponent";
 import pacman from "./assets/pacman.gif";
 import Notice from "./Components/User/Notice";
 import Landing from "./CodeCompiler/components/Landing";
 import Profile from "./Components/User/Profile";
+import Practice from "./Components/User/Practice";
 import LoadingComponent from "./Components/LoadingComponent";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Questions from "./Components/Admin/Questions";
 function App() {
   const [isLoading, setLoading] = useState(true);
   const [sidebarLink, setSidebarLink] = useState("Home");
@@ -94,8 +97,14 @@ function App() {
                           <Route path="/members" exact>
                             <Members setLoading={setLoading} />
                           </Route>
+                          <Route path="/questions" exact>
+                            <Questions setLoading={setLoading} />
+                          </Route>
                           <Route path="/events" exact>
                             <Events setLoading={setLoading} />
+                          </Route>
+                          <Route path="/notice" exact>
+                            <Notices setLoading={setLoading} />
                           </Route>
                         </>
                       ) : (
@@ -104,16 +113,19 @@ function App() {
                             <Event setLoading={setLoading} />
                           </Route>
                           <Route path="/leaderboard" exact>
-                            <LeaderBoard setLoading={setLoading} />
+                            <LeaderBoard user={user} setLoading={setLoading} />
                           </Route>
                           <Route path="/profile" exact>
                             <Profile user={user} setLoading={setLoading} />
                           </Route>
                           <Route path="/notice" exact>
-                            <Notice setLoading={setLoading} />
+                            <Notice setLoading={setLoading} setAuth={setAuth} />
                           </Route>
-                          <Route path="/compiler" exact>
-                            <Landing setLoading={setLoading} />
+                          <Route path="/practice" exact>
+                            <Practice setLoading={setLoading} />
+                          </Route>
+                          <Route path="/compiler/:id" exact>
+                            <Landing user={user} setLoading={setLoading} />
                           </Route>
                         </>
                       )}
@@ -144,11 +156,11 @@ function App() {
             </Col>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Col md={12} className="footer">
               <p>Trident Academy of Technology</p>
             </Col>
-          </Row>
+          </Row> */}
         </Router>
       </div>
     );

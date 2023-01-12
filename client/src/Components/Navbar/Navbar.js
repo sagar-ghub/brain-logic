@@ -64,7 +64,7 @@ function CollapsibleExample({ user, logout }) {
                     </Nav.Link>
                     <Nav.Link
                       as={Link}
-                      to="/compiler"
+                      to="/practice"
                       eventKey={2}
                       href="#memes"
                     >
@@ -137,6 +137,14 @@ function CollapsibleExample({ user, logout }) {
                     </Nav.Link>
                     <Nav.Link as={Link} to="/events" eventKey={2} href="#memes">
                       Events
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to="/questions"
+                      eventKey={2}
+                      href="#memes"
+                    >
+                      Questions
                     </Nav.Link>
                     <Nav.Link as={Link} to="/notice" eventKey={2} href="#memes">
                       Notice

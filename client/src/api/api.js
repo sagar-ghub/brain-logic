@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "http://localhost:5000",
-  baseURL: "https://confused-vest-bull.cyclic.app",
+  baseURL: "http://localhost:5000",
+  // baseURL: "https://confused-vest-bull.cyclic.app",
   // headers: {
   //   "x-access-token": localStorage.getItem("token"),
   // },
@@ -30,7 +30,25 @@ export const getNotices = () => {
   });
 };
 export const getEvents = () => api.get(`/get/events`);
-export const getMembers = () => api.get(`/get/members`);
+export const getMembers = () => {
+  return api.get(`/get/members`, {
+    headers: { "x-access-token": localStorage.getItem("token") },
+  });
+};
+export const getQuestions = () => api.get(`/get/questions`);
+export const getQuestionById = (id) => api.get(`/get/question/${id}`);
+export const getScore = (id) => api.get(`/get/score/${id}`);
+export const createQuestion = (payload) =>
+  api.post(`/create/question`, payload);
+export const updateScore = (payload) => {
+  return api.post(
+    `/create/updateScore`,
+    { ...payload },
+    {
+      headers: { "x-access-token": localStorage.getItem("token") },
+    }
+  );
+};
 
 const apis = {
   // login,
@@ -39,6 +57,11 @@ const apis = {
   createEvent,
   getNotices,
   getMembers,
+  getQuestions,
+  getQuestionById,
+  getScore,
+  updateScore,
+  createQuestion,
 };
 
 export default apis;

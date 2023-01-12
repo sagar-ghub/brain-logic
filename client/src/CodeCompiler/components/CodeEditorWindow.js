@@ -7,7 +7,8 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
 
   const handleEditorChange = (value) => {
     setValue(value);
-    onChange("code", value);
+    onChange("code", JSON.stringify(value));
+    // console.log(JSON.stringify(value));
   };
 
   return (
